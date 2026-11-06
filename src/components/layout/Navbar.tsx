@@ -19,7 +19,7 @@ import {
 import { authClient, useSession } from "@/lib/auth-client";
 import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ShowMenu from "../shared/ShowMenu";
 
 const navLinks = [
@@ -53,6 +53,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   const user = session?.user;
   const router = useRouter();
+  const pathName = usePathname()
 
   const handleSignOut = async () => {
     const data = await authClient.signOut();
@@ -78,7 +79,7 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="rounded-lg px-2.5 py-2 text-[13px] font-medium whitespace-nowrap text-neutral-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b8bf8] lg:px-3 lg:text-sm"
+                  className={`rounded-lg px-2.5 py-2 text-[13px] font-medium whitespace-nowrap  transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b8bf8] lg:px-3 lg:text-sm ${pathName === link.href ? "text-[#6a6ae4] hover:text-[#6a6ae4] " : "text-white hover:text-white "}  `}
                 >
                   {link.label}
                 </Link>
@@ -89,8 +90,7 @@ const Navbar = () => {
 
             {user ? (
               <>
-              <ShowMenu user={user}/>
-                
+                <ShowMenu user={user} />
               </>
             ) : (
               <>

@@ -32,7 +32,7 @@ export default function SignUpPage() {
       e.preventDefault()
       const form = e.currentTarget
       const formData = new FormData(form)
-      const userData = Object.fromEntries(formData.entries()) as {name: string, email:string, password: string}
+      const userData = Object.fromEntries(formData.entries()) as {name: string, email:string, password: string , image?: string}
       
       const { data, error } = await signUp.email({
         ...userData 

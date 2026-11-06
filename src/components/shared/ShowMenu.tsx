@@ -11,7 +11,7 @@ import { Button } from "../ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
-const ShowMenu = ({ user }: { user: { name: string; email: string } }) => {
+const ShowMenu = ({ user }: { user: { name: string; email: string; image?: string | null } }) => {
    const router = useRouter()
    const handleSignOut = async() => {
       const data = await authClient.signOut()
@@ -28,8 +28,8 @@ const ShowMenu = ({ user }: { user: { name: string; email: string } }) => {
         nativeButton= {false}
           render={
             <Avatar className='cursor-pointer'>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src={user.image ?? undefined} alt="@shadcn" />
+              <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
               <AvatarBadge className="bg-green-600 dark:bg-green-800" />
             </Avatar>
           }
